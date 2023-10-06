@@ -1,0 +1,16 @@
+package ex07;
+
+public class MethodReferanceExam {
+	public static void main(String[] args) {
+		Person person = new Person();
+		
+		person.action(new Calcuable() {
+			
+			@Override
+			public double calc(double x, double y) {
+				return x+y;
+			}
+		});
+		
+	}
+}

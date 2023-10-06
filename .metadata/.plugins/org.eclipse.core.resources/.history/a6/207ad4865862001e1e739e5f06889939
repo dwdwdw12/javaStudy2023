@@ -1,0 +1,29 @@
+package ex03;
+
+interface Printable{
+	void print();
+}
+
+class Papers{
+	private String con;
+	public Papers(String con) {this.con = con;}
+	public Printable getPrinter() {				//반환타입을 Printable으로 지정.
+		return new Printer2();					//생성자를 돌려줌. 하위 클래스(구현 클래스)인 Printer() 반환 가능.
+	}
+	
+	private class Printer2 implements Printable{	//내부에서만 사용할 수 있게 private	//클래스명이 바뀌어도 상관않겠다.
+		@Override
+		public void print() {
+			System.out.println(con);
+		}
+	}
+}
+
+public class UseMemberInnerClass {
+	public static void main(String[] args) {
+		Papers p = new Papers("프린터 : 메시지 출력");
+		
+		Printable prn = p.getPrinter();
+		prn.print();						//출력 결과만 얻으면 됨. 내부에서 어떻게 동작하는지는 상관없음.
+	}
+}

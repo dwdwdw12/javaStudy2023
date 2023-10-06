@@ -1,0 +1,15 @@
+package com.movie;
+
+public class AdminMenu extends AbstractMenu{
+
+	public AdminMenu(String menuText, Menu prevMenu) {
+		super(menuText, prevMenu);
+		
+	}
+
+	@Override
+	public Menu next() {
+		return null;
+	}
+
+}

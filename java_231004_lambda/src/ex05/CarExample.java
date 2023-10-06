@@ -1,0 +1,19 @@
+package ex05;
+
+public class CarExample {
+	
+	public static void main(String[] args) {
+		Car car = new Car();
+		
+		car.run1();
+		car.run2();
+		car.run3(new Tire() {	//상속 받았다고 생각 //하위 클래스 객체 생성(익명)
+			@Override			//재정의
+			public void roll() {		
+				System.out.println("익명 객체3이 굴러갑니다.");
+			}
+		});
+		car.run3(new SubTire()); //Tire를 상속한 하위클래스를 넣을 수 있음.
+	}
+	
+}

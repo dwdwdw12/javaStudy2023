@@ -1,0 +1,24 @@
+package ex02;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class PriceInfo {
+	private String model;
+	private int price;
+	
+	public PriceInfo(String model, int price) {
+		this.model = model;
+		this.price = price;
+	}
+	
+	public int getPrice() {return price;}
+}
+
+public class StreamExam2 {
+	public static void main(String[] args) {
+		List<PriceInfo> lists = new ArrayList<PriceInfo>();	//초기 생성시 16칸 생성. 값 추가시 주소값을 참조시킴.
+		lists.add(new PriceInfo("Toy", 500));
+		
+	}
+}

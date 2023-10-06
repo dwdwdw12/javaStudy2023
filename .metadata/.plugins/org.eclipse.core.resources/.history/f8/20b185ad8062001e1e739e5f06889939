@@ -1,0 +1,12 @@
+package ex06_lambda_practice_advanced;
+
+import java.util.function.Supplier;
+
+//매개변수 0개, 반환값 존재.
+public class Ex03_Supplier {
+	public static void main(String[] args) {
+		Supplier<Integer> dice = () -> (int)(Math.random()*6+1);
+		
+		System.out.println(dice.get());
+	} 
+}

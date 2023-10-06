@@ -1,0 +1,21 @@
+package ex06_lambda_practice_advanced;
+
+import java.util.function.Predicate;
+
+//매개변수 1개, 반환타입 boolean.
+public class Ex05_Predicate {
+	public static void main(String[] args) {
+//		Predicate<Integer> judge = num -> num%2==0 ? true: false;	//뒤의 조건문 생략 가능.
+		Predicate<Integer> judge = num -> num%2==0;
+		int num2 = (int)(Math.random()*20);
+		
+		String msg = judge.test(num2)==true ? "짝수" : "홀수";
+		System.out.printf("%d : %s",num2, msg);
+		
+		/*
+		 * Predicate<Integer> judge2 = (Integer num) -> { if(num%2==0) {
+		 * System.out.println("짝수입니다."); return true; } else {
+		 * System.out.println("홀수입니다"); return false; } }; judge2.test(5);
+		 */	 
+	}
+}

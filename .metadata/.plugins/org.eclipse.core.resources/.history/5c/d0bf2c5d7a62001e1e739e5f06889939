@@ -1,0 +1,14 @@
+package ex06_lambda_practice2;
+
+import java.util.function.Function;
+
+
+
+//매개변수 1개, 반환값 존재.
+public class Ex02 {
+	public static void main(String[] args) {
+		Function<Integer, Integer> square = x -> x*x;
+		
+		System.out.println(square.apply(15));
+	}
+}

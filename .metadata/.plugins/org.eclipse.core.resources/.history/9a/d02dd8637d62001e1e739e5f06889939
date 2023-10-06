@@ -1,0 +1,13 @@
+package ex06_lambda_practice2;
+
+@FunctionalInterface
+interface Dice{
+	int roll();
+}
+//매개변수 0개, 반환값 존재.
+public class Ex03 {
+	public static void main(String[] args) {
+		Dice dice = () -> (int)(Math.random()*6+1);
+		System.out.println(dice.roll());
+	} 
+}

@@ -1,0 +1,13 @@
+package ex06_lambda_practice;
+
+@FunctionalInterface
+interface Tire{
+	int roll();
+}
+
+public class Ex03 {
+	public static void main(String[] args) {
+		Print print = (name, i) -> System.out.println(name + "=" + i);
+		print.printVar("aaa", 5);
+	}
+}

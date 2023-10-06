@@ -1,0 +1,47 @@
+package ex02;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class PriceInfo {
+	private String model;
+	private int price;
+	
+	public PriceInfo(String model, int price) {
+		this.model = model;
+		this.price = price;
+	}
+	
+	public int getPrice() {return price;}
+	public String getModel() {return model;}
+}
+
+public class StreamExam2 {
+	public static void main(String[] args) {
+		List<PriceInfo> lists = new ArrayList<PriceInfo>();	//초기 생성시 16칸 생성. 값 추가시 주소값을 참조시킴. generic을 이용해 특정 객체를 이용해 생성한 값을 주입하도록 제한할 수 있음
+		lists.add(new PriceInfo("Toy", 500));
+		lists.add(new PriceInfo("Robot", 1500));
+		lists.add(new PriceInfo("Box", 700));
+															//function
+		int sum = lists.stream().filter(p->p.getPrice()>500).mapToInt(t->t.getPrice()).sum();
+										//model, price가 통과됨	//price만 출력, int 받을 때
+		System.out.println(sum);
+		
+		System.out.println("================================");
+		//0.List 데이터 3개 추가
+		//1.Priceinfo 클래스 멤버변수 model getter 생성
+		//2.필터링 조건 : model이 참조하는 문자열 길이가 4이상이면 해당 인스턴스 통과
+		//3.맵핑방법: PriceInfo 인스턴스 -> String 인스턴스(모델링)
+		//4.forEach로 2,3 조건 만족하는 인스턴스만 출력
+		
+		lists.add(new PriceInfo("AAA", 1200));
+		lists.add(new PriceInfo("BBBB", 400));
+		lists.add(new PriceInfo("CCCCC", 600));
+															
+		lists.stream()
+			.filter(s->s.getModel().length()>=4)
+			.map(s->s.getModel())		//문자열 받을 때
+			.forEach(s->System.out.println(s));
+		
+	}
+}

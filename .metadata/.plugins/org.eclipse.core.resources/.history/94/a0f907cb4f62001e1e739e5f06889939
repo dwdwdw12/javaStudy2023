@@ -1,0 +1,11 @@
+package ex01;
+
+class Outer3{
+	
+}
+
+public class MemberInnerClass {
+	public static void main(String[] args) {
+		
+	}
+}

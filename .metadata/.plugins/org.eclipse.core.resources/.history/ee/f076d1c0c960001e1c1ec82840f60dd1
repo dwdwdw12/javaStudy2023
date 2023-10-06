@@ -1,0 +1,25 @@
+package com.movie;
+
+public class AdminMenu extends AbstractMenu{
+
+	private static final AdminMenu instance = new AdminMenu(null);
+
+	private static final String ADMIN_MENU_TEXT = "";
+
+	
+	
+	public AdminMenu(Menu prevMenu) {
+		super(ADMIN_MENU_TEXT, prevMenu);
+		
+	}
+
+	@Override
+	public Menu next() {
+		return null;
+	}
+
+	public static AdminMenu getInstance() {
+		return instance ;
+	}
+
+}

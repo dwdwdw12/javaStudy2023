@@ -1,0 +1,16 @@
+package ex06_lambda_practice2;
+
+import java.util.function.Consumer;
+
+//@FunctionalInterface
+//interface Print{
+//	void printVar(String name);				//매개변수 1개 리턴x
+//}
+
+public class Ex01 {
+	public static void main(String[] args) {
+		Consumer<String> con = (String name) -> System.out.println(name);
+		
+		con.accept("조조");
+	}
+}

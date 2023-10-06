@@ -1,0 +1,13 @@
+package ex06_lambda_practice2;
+
+//@FunctionalInterface
+//interface Print{
+//	void printVar(String name);
+//}
+
+public class Ex01 {
+	public static void main(String[] args) {
+		Print print = (name, i) -> System.out.println(name + "=" + i);
+		print.printVar("aaa", 5);
+	}
+}

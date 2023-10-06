@@ -1,0 +1,13 @@
+package com.movie;
+
+import java.util.List;
+
+public class Seats {
+
+	public Seats(List<Reservation> reservations) {
+	}
+
+	public void show() {
+	}
+
+}

@@ -1,0 +1,29 @@
+package ex02;
+
+interface Printable{
+	void print();
+}
+
+class Papers{
+	private String con;
+	public Papers(String con) {this.con = con;}
+	public Printable getPrinter() {
+		return new Printer();					//생성자를 돌려줌.
+	}
+	
+	private class Printer implements Printable{	//내부에서만 사용할 수 있게 private
+		@Override
+		public void print() {
+			System.out.println(con);
+		}
+	}
+}
+
+public class UseMemberInnerClass {
+	public static void main(String[] args) {
+		Papers p = new Papers("프린터 : 메시지 출력");
+		
+		Printable prn = p.getPrinter();
+		prn.print();
+	}
+}

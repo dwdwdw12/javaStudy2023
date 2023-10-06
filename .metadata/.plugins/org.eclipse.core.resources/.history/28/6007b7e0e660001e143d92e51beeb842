@@ -1,0 +1,48 @@
+package com.movie;
+
+public class MainMenu extends AbstractMenu {
+
+	private static final MainMenu instance = new MainMenu(null);
+
+	private static final String MAIN_MENU_TEXT = 
+			"1.영화 예매하기\n"
+			+ "2.예매 확인하기\n"
+			+ "3.예매 취소하기\n"
+			+ "4.관리자 메뉴로 이동\n"
+			+ "q.종료\n\n"
+			+ "메뉴를 선택하세요 : ";
+	
+	private MainMenu(Menu prevMenu) {		
+		super(MAIN_MENU_TEXT, prevMenu);	//AbstractMenu의 생성자에 반환.	MainApp에서 while문 - print()가 시작.
+	}
+
+	public static MainMenu getInstance() {
+		return instance ;
+	}
+
+	@Override
+	public Menu next() {
+		
+		switch(sc.nextLine()) {
+		case "4" : 
+			if(!checkAdminPassword()) {
+				System.out.println(">>비밀번호가 틀렸습니다.");
+				return this;
+			}
+			AdminMenu adminMenu = AdminMenu.getInstance();
+			adminMenu.SetPrevMenu(this);	//MainMenu	-> AdminMenu.java 참고
+			return adminMenu;
+		case "q" : return prevMenu;	//prevMenu에는 null값이 들어있음. 
+							//null 반환하며 프로그램 종료(MainApp - while문 참고)
+		
+		default : return this;		//입력상태를 유지(객체 자신을 반환)
+		}
+		
+	}
+	
+	private boolean checkAdminPassword() {
+		System.out.print("관리자 비밀번호를 입력하세요: ");
+		return "aa".equals(sc.nextLine());
+	};
+
+}

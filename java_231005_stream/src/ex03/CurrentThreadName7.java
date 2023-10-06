@@ -1,0 +1,64 @@
+package ex03;
+
+class Printer{
+	private boolean isHelloTurn = true;
+	
+	synchronized public void printHello() {
+		while(!isHelloTurn) {
+			try {
+				wait();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Hello");
+		isHelloTurn = false;
+		notify(); 					//false로 바꾼걸 알려줌
+	}
+
+	synchronized public void printWorld() {
+		while(isHelloTurn) {		//부호를 반대로(교대로 작업하기 위해)
+			try {
+				wait();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("World");
+		isHelloTurn = true;	
+		notify(); 					
+	}
+}
+
+public class CurrentThreadName7 {
+	public static void main(String[] args) throws InterruptedException {
+
+		Printer printer = new Printer();
+		
+		Thread t1 = new Thread(()->{
+				for (int i = 0; i < 5; i++) {
+					printer.printHello();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+		});			
+		
+		Thread t2 = new Thread(()->{	 				
+				for (int i = 0; i < 5; i++) {
+					printer.printWorld();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+		});			
+		
+		t1.start();		
+		t2.start();				//교대로 출력가능
+		
+	}
+}

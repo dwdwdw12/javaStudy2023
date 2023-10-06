@@ -1,0 +1,26 @@
+package ex01;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
+public class FirstStreamExam {
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5};
+		
+		IntStream stm1 = Arrays.stream(arr);
+		IntStream stm2 = stm1.filter(n->n%2==1);	//중간연산, 1,3,5
+		//int sum = stm2.sum();	//1+3+5		//최종연산
+		int cnt = (int) stm2.count();		//최종연산이 끝난 후에 count 불가.
+		//System.out.println(sum);			//error
+		System.out.println(cnt);
+		
+		int result = Arrays.stream(arr).filter(n->n%2==0).sum();
+		System.out.println(result);
+		
+		System.out.println("=======================");
+		
+		String[] names = {"Toy", "Box", "Robot"};
+		
+		
+	}
+}

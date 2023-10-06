@@ -1,0 +1,14 @@
+package ex06;
+
+interface Cal3{
+	int max(int num1, int num2);
+}
+
+public class Lambda6 {
+	public static void main(String[] args) {
+		Cal3 cal3 = (num1, num2) -> num1 > num2 ? num1 : num2;		//중괄호 없으면 return 문자 제거해야.
+		
+		int result3 = cal3.max(15, 10);
+		System.out.println(result3);
+	}
+}

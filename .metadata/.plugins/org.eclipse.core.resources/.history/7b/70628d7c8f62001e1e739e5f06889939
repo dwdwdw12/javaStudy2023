@@ -1,0 +1,55 @@
+package ex07;
+
+public class MethodReferanceExam {
+	public static void main(String[] args) {
+		Person person = new Person();
+		
+		person.action(new Calcuable() {	//익명 구현 객체
+			
+			@Override
+			public double calc(double x, double y) {
+				return x+y;			//Person- double result 로 반환.
+			}
+		});
+		
+		person.action((x, y) -> x+y);	//람다식 표현
+		
+		System.out.println("===================================");
+		
+		//메서드 참조 - 정적 메서드1
+		//java.lang.Double 의 static double sum(double x, double y) 을 참조
+		person.action(Double::sum);	
+		
+		//메서드 참조 - 정적 메서드2
+		//java.lang.Double 의 static double max(double x, double y) 을 참조
+		person.action(Double::max);
+		
+		System.out.println("===================================");
+		//메서드 참조 - 정적 메서드3
+		person.action(new Calcuable() {		//익명 구현 객체
+			
+			@Override
+			public double calc(double x, double y) {
+				return Computer.staticMethod(x, y);
+			}
+		});
+			
+		person.action((x, y)->Computer.staticMethod(x, y));	//람다식
+		person.action(Computer::staticMethod);	//람다식-참조형
+	
+		System.out.println("===================================");
+		
+		//메서드 참조 - 인스턴스 메서드
+		Computer com = new Computer();
+		
+		person.action(new Calcuable() {			//익명 구현 객체
+			
+			@Override
+			public double calc(double x, double y) {
+				return com.instanceMethod(x, y);
+			}
+		});
+		
+		
+	}
+}

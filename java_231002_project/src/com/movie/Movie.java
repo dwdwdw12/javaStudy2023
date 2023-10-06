@@ -1,0 +1,116 @@
+package com.movie;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Movie {
+	
+	private long id;
+	private String title;
+	private String genre;
+	
+	private static final File file = new File("movie.txt");
+	
+	public Movie(String title, String genre) {
+		this(Instant.now().getEpochSecond(), title, genre);	//타임스탬프
+	}					//반환 값은 ‘1970-01-01 00:00:00'을 기준으로 지나온 시간을 초 단위로 계산한 결과
+	
+	public Movie(long id, String title, String genre) {
+		this.id = id;
+		this.title = title;
+		this.genre = genre;
+	}
+
+	public static List<Movie> findAll() throws IOException {
+		List<Movie> movies = new ArrayList<Movie>();
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line = null;
+		
+		while((line = reader.readLine()) != null) {
+			String[] temp = line.split(","); //temp[0], temp[1], temp[2] 생성
+			Movie movie = new Movie(Long.parseLong(temp[0]), temp[1], temp[2]);
+									//id의 타입, long형으로 변환
+			movies.add(movie);
+		}
+		reader.close();
+		return movies;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("[%d] : %s{%s}", id, title, genre);	//format 지정 가능
+	}
+
+	public void save() {
+		try {
+			FileWriter fw = new FileWriter(file, true);	//true : 기존 파일에 이어서 쓰기
+			fw.write(this.toFileString() + "\n");	//기존 파일에 덮어쓰면 기존 데이터가 사라짐.
+					//txt파일-마지막 커서의 위치에 따라 "\n"을 앞에 삽입해야 할 수도, 뒤에 삽입해야 할 수도 있음.
+					//"\n"이 앞에 있으면 빈 파일에 삽입 시 오류 발생(빈 줄 삽입 -> null값으로 인식하므로 읽을 수 없음.)
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String toFileString() {
+		return String.format("%d,%s,%s", id,title,genre);	//붙여쓰기(txt파일 작성형식에 따라)
+	}
+
+	public static void delete(String movieId) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line = null;
+		
+		String text = "";
+		
+		while((line = reader.readLine())!=null) {
+			String[] temp = line.split(",");
+			if(movieId.equals(temp[0])) {
+				continue;
+			}
+			text += line + "\n";
+		}
+		reader.close();
+		
+		FileWriter fw = new FileWriter(file);	//true 넣어서 비교
+												//file은 어쩔 수 없음. DB 권장.
+												//게임 쪽에선 쓸 수도 있음. 저장 용량이 작으면.
+		fw.write(text);
+		fw.close();
+		
+	}
+
+	public static Movie findById(String movieId) {
+		Movie movie = null;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String line = null;
+			
+			while((line = reader.readLine())!=null) {
+				String[] temp = line.split(",");
+				if(movieId.equals(temp[0])) {
+					movie = new Movie(Long.parseLong(temp[0]), temp[1], temp[2]);
+					break;
+				}
+			}
+			reader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return movie;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	
+}
